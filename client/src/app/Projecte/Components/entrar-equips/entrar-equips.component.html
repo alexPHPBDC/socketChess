@@ -1,0 +1,23 @@
+<form  #formulariEquips="ngForm" (ngSubmit)="onSubmit(formulariEquips)">
+    <div *ngIf="equipJaIntroduit">
+        <p style="color:red">Equip ja introduït</p>
+    </div>
+    <div *ngIf="jugadorJaIntroduit">
+        <p style="color:red">Jugador ja introduït</p>
+    </div>
+<label>
+    Nom equip:
+    <input type="text" [(ngModel)]="equip" placeholder="Nom equip" name="nomEquip" required>
+</label>
+<label>
+    Jugador 1:
+    <input type="text" [(ngModel)]="jugador1" placeholder="Nom jugador" name="jugador1" required>
+</label>
+<label>
+    Jugador 2:
+    <input type="text" [(ngModel)]="jugador2" placeholder="Nom jugador" name="jugador2" required>
+</label>
+
+<button  type="submit" [disabled]="formulariEquips.invalid">Entrar</button>
+
+</form>

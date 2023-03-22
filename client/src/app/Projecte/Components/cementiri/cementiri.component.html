@@ -1,0 +1,9 @@
+<div class="cementiri">
+    <table>
+        <tr>
+            <td *ngFor="let peca of this.cementiri; let x = index">
+                <img *ngIf="peca != null" src="{{peca.imatge}}">
+            </td>
+        </tr>
+    </table>
+</div>

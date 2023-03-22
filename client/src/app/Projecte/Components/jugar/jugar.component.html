@@ -1,0 +1,94 @@
+<div *ngIf="!partidaComencada">
+
+    <div *ngIf="!jugadorAssignat">
+        <button (click)="assignarJugador()">Jugar</button>
+    </div>
+    <div *ngIf="jugadorAssignat">
+        <button>Jugar</button>
+        <p>Navegador de -> {{jugadorAssignat.nom}} - {{jugadorAssignat.colorPeces}}</p>
+    </div>
+
+</div>
+
+<div *ngIf="partidaComencada && jugadorAssignat">
+    <h1>Esta jugant {{jugadorAssignat.nom}} amb les peces {{jugadorAssignat.colorPeces}}</h1>
+    <div class="espaiJoc">
+
+        <div class="partida1"
+            [ngClass]="this.partides[indexLaMevaPartida] == this.partides[0] ? 'playing': 'secondary'">
+            <h3>{{this.partides[0].versus}}</h3>
+            <h3>{{this.partides[0].negreNom}}</h3>
+
+            <app-cementiri [cementiri]="this.partides[0].cementiriNegre"></app-cementiri>
+            
+            <h3>Taulell 1</h3>
+
+            <app-lletres [lletres]="this.partides[0].lletres"></app-lletres>
+
+            <div class="taulell taulell1">
+
+                <app-numeros [numeros]="this.partides[0].numeros"></app-numeros>
+
+                <table>
+                    <tr *ngFor="let row of this.partides[0].taulell.caselles; let x = index">
+                        <td *ngFor="let casella of row; let y = index" (drop)="drop($event,{x:x,y:y})"
+                            (dragover)="allowDrop($event)" class="cell"
+                            [ngClass]="casella.color == colorCasella.Blanca ? 'blanca': 'groga'">
+                            <img [draggable]="canIDrag(x,y,0)" (dragstart)="drag($event,{x:x,y:y})"
+                                *ngIf="casella.peca != null" src="{{casella.peca.imatge}}">
+                        </td>
+                    </tr>
+                </table>
+
+                <app-numeros [numeros]="this.partides[0].numeros"></app-numeros>
+
+            </div>
+
+            <app-lletres [lletres]="this.partides[0].lletres"></app-lletres>
+
+            <app-cementiri [cementiri]="this.partides[0].cementiriBlanc"></app-cementiri>
+
+            <h3>{{this.partides[0].blancNom}}</h3>
+
+        </div>
+
+        <div class="partida2"
+            [ngClass]="this.partides[this.indexLaMevaPartida] == this.partides[1] ? 'playing': 'secondary'">
+            <h3>{{this.partides[1].contrincants.nomVersus}}</h3>
+            <h3>{{this.partides[1].blancNom}}</h3>
+
+            <app-cementiri [cementiri]="this.partides[1].cementiriBlanc"></app-cementiri>
+
+            <h3>Taulell 2</h3>
+
+            <app-lletres [lletres]="this.partides[1].lletres"></app-lletres>
+
+            <div class="taulell taulell2">
+
+                <app-numeros [numeros]="this.partides[1].numeros"></app-numeros>
+
+                <table>
+                    <tr *ngFor="let row of this.partides[1].taulell.caselles; let x = index">
+
+                        <td *ngFor="let casella of row; let y = index" (drop)="drop($event,{x:x,y:y})"
+                            (dragover)="allowDrop($event)" class="cell"
+                            [ngClass]="casella.color == colorCasella.Blanca ? 'blanca': 'groga'">
+                            <img [draggable]="canIDrag(x,y,1)" (dragstart)="drag($event,{x:x,y:y})"
+                                *ngIf="casella.peca != null" src="{{casella.peca.imatge}}">
+                        </td>
+                    </tr>
+                </table>
+
+                <app-numeros [numeros]="this.partides[1].numeros"></app-numeros>
+
+            </div>
+
+            <app-lletres [lletres]="this.partides[1].lletres"></app-lletres>
+
+            <app-cementiri [cementiri]="this.partides[1].cementiriNegre"></app-cementiri>
+
+            <h3>{{this.partides[1].negreNom}}</h3>
+
+        </div>
+    </div>
+</div>
